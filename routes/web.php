@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\BiodataController;
 /*
@@ -15,7 +16,7 @@ use App\Http\Controllers\BiodataController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Route::get('biodata', function () {
     $Biodata= [
@@ -27,9 +28,18 @@ Route::get('biodata', function () {
         'alamat'=>'kom.posgiro',
         'telp'=>'088220529817',
         'email'=>'th8rjheroic@gmail.com',
-        'photo'=>'..'
+    
     ];
     return view('biodata', $Biodata);
 });
 
-route::get('/list', [BiodataController::class, 'index']);
+Route::get('/list', [BiodataController::class, 'index'])->name('list');
+Route::get('/form_siswa', [BiodataController::class, 'create'])->name('form_siswa');
+Route::post('/store_siswa', [BiodataController::class, 'store']);
+Route::get('/edit/{id}', [BiodataController::class, 'edit'])->name('edit_siswa');
+Route::put('/update/{id}', [BiodataController::class, 'update'])->name('update-siswa');
+Route::delete('/delete/{id}', [BiodataController::class, 'destroy'])->name('destroy-siswa'); \
+Route::get('/bio/{id}', [BiodataController::class, 'show'])->name('show-bio');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

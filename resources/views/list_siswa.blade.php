@@ -78,25 +78,27 @@
                          @foreach ($siswas as $siswa)
                          @php $i++ @endphp
                          <tr>
-                             <td> {{ $i }}</td>
-                             <td> {{ $siswa->nama  }}</td>
-                             <td> {{ $siswa->lahir  }}, {{ \Carbon\Carbon::parse($siswa->tgl)->format('d/m/y')}}</td>
-                             <td>{{ $siswa->jk }}</td>
-                             <td>{{ $siswa->agama }}</td>
-                             <td>{{ $siswa->alamat }}</td>
-                             <td>{{ $siswa->telp }}</td>
-                             <td>{{ $siswa->email }}</td>
+                         <td>{{ $i }}</td>
+                        <td>{{ $siswa->nama }}</td>
+                        <td>{{ $siswa->lahir }}, {{ \Carbon\Carbon::parse($siswa->tgl)->format('d/m/Y')}}</td>
 
-                             <td>
-                                <button type="button" class="btn btn-warning">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                                <button type="button" class="btn btn-primary">Lihat</button>
-
+                        <td>{{ $siswa->jk }}</td>
+                        <td>{{ $siswa->agama }}</td>
+                        <td>{{ $siswa->alamat }}</td>
+                        <td>{{ $siswa->telp }}</td>
+                        <td>{{ $siswa->email }}</td>
+                             <td><form method="POST" action="{{ route('destroy-siswa',$siswa->id) }}">
+                             <a button type="button" class="btn btn-warning" href="{{ route('edit_siswa',$siswa->id) }}">Edit</button></a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <a button type="button" class="btn btn-primary" href="{{ route('show-bio',$siswa->id) }}">Lihat</button></a>
                              </td>  
                             </tr> 
                             @endforeach
                     </tbody>
                 </table>
+                <a href="{{ route('form_siswa') }}">
                 <button type="button" class="btn btn-primary">Add New</button>
             </div>
             <div>
